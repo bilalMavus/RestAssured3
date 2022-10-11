@@ -1,5 +1,4 @@
 package Campus;
-
 import Campus.Model.Country;
 import io.restassured.http.ContentType;
 import io.restassured.http.Cookies;
@@ -25,17 +24,17 @@ public class CountryTest {
         credential.put("rememberMe", "true");
 
         cookies=
-        given()
-                .contentType(ContentType.JSON)
-                .body(credential)
+                given()
+                        .contentType(ContentType.JSON)
+                        .body(credential)
 
-                .when()
-                .post("auth/login")
+                        .when()
+                        .post("auth/login")
 
-                .then()
-                //.log().cookies()
-                .statusCode(200)
-                .extract().response().getDetailedCookies()
+                        .then()
+                        //.log().cookies()
+                        .statusCode(200)
+                        .extract().response().getDetailedCookies()
         ;
     }
 
@@ -54,18 +53,18 @@ public class CountryTest {
         country.setCode(countryCode); // generateCountrCode
 
         countryID=
-           given()
-                   .cookies(cookies)
-                   .contentType(ContentType.JSON)
-                   .body(country)
+                given()
+                        .cookies(cookies)
+                        .contentType(ContentType.JSON)
+                        .body(country)
 
-                   .when()
-                   .post("school-service/api/countries")
+                        .when()
+                        .post("school-service/api/countries")
 
-                   .then()
-                   .log().body()
-                   .statusCode(201)
-                   .extract().jsonPath().getString("id")
+                        .then()
+                        .log().body()
+                        .statusCode(201)
+                        .extract().jsonPath().getString("id")
         ;
 
     }
@@ -90,18 +89,18 @@ public class CountryTest {
         country.setName(countryName);
         country.setCode(countryCode);
 
-          given()
-                        .cookies(cookies)
-                        .contentType(ContentType.JSON)
-                        .body(country)
+        given()
+                .cookies(cookies)
+                .contentType(ContentType.JSON)
+                .body(country)
 
-                        .when()
-                        .post("school-service/api/countries")
+                .when()
+                .post("school-service/api/countries")
 
-                        .then()
-                        .log().body()
-                        .statusCode(400)
-                        .body("message",equalTo("The Country with Name \""+countryName+"\" already exists."))
+                .then()
+                .log().body()
+                .statusCode(400)
+                .body("message",equalTo("The Country with Name \""+countryName+"\" already exists."))
         ;
     }
 
@@ -143,7 +142,7 @@ public class CountryTest {
 
                 .then()
                 .log().body()
-                .statusCode(208)
+                .statusCode(200)
         ;
     }
 
